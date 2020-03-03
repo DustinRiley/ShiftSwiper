@@ -33,6 +33,14 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
                                 msg = msg.toLowerCase();
                                 if(msg.includes('does anyone')){
                                     api.sendMessage("I'll take it!", nicoleID)
+                                    /*api.sendMessage({
+                                        body: 'Hello @Sender! @Sender!',
+                                        mentions: [{
+                                        tag: '@Sender',
+                                        id: message.senderID,
+                                        fromIndex: 9, // Highlight the second occurrence of @Sender
+                                        }],
+                                    }, message.threadID);*/
                                 } 
                                 
                             });
@@ -56,3 +64,5 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         }
     });
 });
+
+
