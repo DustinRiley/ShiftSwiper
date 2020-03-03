@@ -1,0 +1,15 @@
+{
+  "name": "shift-swiper",
+  "version": "1.0.0",
+  "description": "A facebook chat bot to take shifts before others do",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dustin Riley",
+  "license": "ISC",
+  "dependencies": {
+    "facebook-chat-api": "^1.6.1",
+    "mqtt": "^3.0.0"
+  }
+}
