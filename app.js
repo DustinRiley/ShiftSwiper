@@ -1,8 +1,21 @@
 const login = require("facebook-chat-api-master");
 const fs = require("fs");
+const parseMsg = require('./parseMessage');
 const threadID = 638950929;
 const nicoleID = 540353708;
 const userID = 638950929;
+
+var avail=[];
+function populateAvail(){
+    for(let i=0; i<14; i++){
+        let d = new Date();
+        d.setDate(d.getDate()+i)
+        d.setHours(0,0,0,0)
+
+        avail.push(d);
+    }
+}
+populateAvail();
  
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
@@ -26,21 +39,27 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
                    
                     api.getThreadInfo(event.threadID,(err, threadInfo)=>{
                         if(threadInfo.threadName==null && event.threadID== nicoleID && event.senderID!= userID){
+
                             api.getUserInfo([event.senderID], (err, sender)=>{
+
                                 if(err) return console.error(err);
+
                                 const senderName=sender[event.senderID].name;
                                 let msg = event.body;
-                                msg = msg.toLowerCase();
-                                if(msg.includes('does anyone')){
-                                    api.sendMessage("I'll take it!", nicoleID)
-                                    /*api.sendMessage({
-                                        body: 'Hello @Sender! @Sender!',
-                                        mentions: [{
-                                        tag: '@Sender',
-                                        id: message.senderID,
-                                        fromIndex: 9, // Highlight the second occurrence of @Sender
-                                        }],
-                                    }, message.threadID);*/
+                                console.log("msg: "+msg,+' avail: '+avail+' sender: '+senderName);
+                                let response = parseMsg.response(msg, avail, senderName)
+                                console.log(response);
+                                if(response){
+                                    
+                                    api.sendMessage({
+                                        body: response,
+                                        mentions: 
+                                            [{
+                                                tag: '@'+senderName,
+                                                id: event.senderID,
+                                            }],
+                                    }, nicoleID);
+                                    api.sendMessage('You\'ve taken '+senderName+' shift. Here is what you said:\n'+response, nicoleID)
                                 } 
                                 
                             });

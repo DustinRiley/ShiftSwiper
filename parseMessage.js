@@ -1,24 +1,22 @@
-let avail=[];
-function populateAvail(){
-    for(let i=0; i<14; i++){
-        let d = new Date();
-        d.setDate(d.getDate()+i)
-        d.setHours(0,0,0,0)
 
-        avail.push(d);
-    }
-}
-populateAvail();
-console.log(replyMsg('Anyone want my shift on Sunday at 12? or friday',avail,'Nicole'));
 
+//console.log(replyMsg('anyone want my monday',avail,'Nicole Bird'));
+
+/**
+ * 
+ * @param {string} msg 
+ * @param {array[Date obj]} availability 
+ * @param {string} sender 
+ */
 function replyMsg(msg, availability, sender){
     if(isGvivingAway(msg)){
         let dates = getDates(msg, availability);
         if(dates.length>0){
             return constructMsg(dates, sender);
         }
-        else return 'noReply'; //unable to parse any dates, or no matching to availability
+        else return false; //unable to parse any dates, or no matching to availability
     }
+    else return false
 }
 
 /**
@@ -77,6 +75,7 @@ function parseDates(msg){
     msg=msg.toLowerCase();
 
     //If message includes next generally referes to next week
+    //TODO need regex to match if next applies to one shift or two shifts
     if(msg.includes('next')){
         //Add 7 days to total
         dayOfMonth=7;
@@ -117,4 +116,4 @@ function constructMsg(dates, sender){
     
 }
 
-
+module.exports.response = replyMsg;
