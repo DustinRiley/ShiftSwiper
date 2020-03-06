@@ -9,7 +9,7 @@
   "author": "Dustin Riley",
   "license": "ISC",
   "dependencies": {
-    "facebook-chat-api": "^1.6.1",
+    "facebook-chat-api": "^1.7.0",
     "mqtt": "^3.0.0",
     "yargs": "^15.1.0"
   }

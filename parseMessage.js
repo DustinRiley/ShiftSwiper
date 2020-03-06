@@ -1,7 +1,3 @@
-
-
-//console.log(replyMsg('anyone want my monday',avail,'Nicole Bird'));
-
 /**
  * 
  * @param {string} msg 
@@ -41,8 +37,6 @@ function isGvivingAway(msg){
     }
 }
 
-
-
 /**
  * 
  * @param {string} msg sender's message
@@ -60,7 +54,6 @@ function getDates(msg, avail){
 function mod(n, m) {
     return ((n % m) + m) % m;
   }
-
 
 /**
  * 
@@ -101,7 +94,6 @@ function parseDates(msg){
  * @returns {string} the reply string
  */
 function constructMsg(dates, sender){
-    console.log(dates)
     let replyString = 'Hey @'+sender+' i\'ll take your';
     dates.forEach((date, index)=>{
         if(index>0){
